@@ -4,8 +4,8 @@ import ast
 from sklearn.feature_extraction.text import CountVectorizer
 from sklearn.metrics.pairwise import cosine_similarity
 
-movies=pd.read_csv("tmdb_5000_movies.csv")
-credits=pd.read_csv("tmdb_5000_credits.csv")
+movies=pd.read_csv("data/tmdb_5000_movies.csv")
+credits=pd.read_csv("data/tmdb_5000_credits.csv")
 
 merged=movies.merge(credits,on="title")
 
@@ -60,15 +60,20 @@ merged['keywords']=merged['keywords'].apply(spaces)
 merged['cast']=merged['cast'].apply(spaces)
 merged['crew']=merged['crew'].apply(spaces)
 
-merged['tags']=merged['genres'] + merged['overview']+merged['keywords']+merged['cast']+merged['crew']
+merged['tags']=merged['genres'] + merged['overview']+merged['keywords']+merged['cast']
 
-new_df=merged[['movie_id','title','vote_average','tags']].copy()
+new_df=merged[['movie_id','title','vote_average','tags','crew']].copy()
+new_df.rename(columns={'crew':'director'},inplace=True)
+
+new_df['vote_average']=new_df['vote_average']/10
 
 def list_to_text(text):
     return " ".join(text)
 
 new_df['tags']=new_df['tags'].apply(list_to_text)
 new_df['tags'] = new_df['tags'].apply(str.lower)
+
+new_df['vote_average'] = new_df['vote_average'].replace(1, 0.5)
 
 cv=CountVectorizer(max_features=5000,stop_words='english')
 vectors=cv.fit_transform(new_df['tags']).toarray()
