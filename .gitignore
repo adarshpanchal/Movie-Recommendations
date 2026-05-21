@@ -1,8 +1,56 @@
+# ------------------------------
+# OS / Editor
+# ------------------------------
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+# ------------------------------
+# Python (backend)
+# ------------------------------
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+*.egg-info/
+.eggs/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+# Env files
+.env
+.env.*
+!.env.example
+# Python artifacts
 *.pkl
 *.pkl.gz
-__pycache__/
-*.pyc
-.env
-
-*.ipynb
-.ipynb_checkpoints/
+# ------------------------------
+# Node / React (frontend)
+# ------------------------------
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+# Build output
+dist/
+build/
+# Vite cache
+.vite/
+# ------------------------------
+# Coverage / reports
+# ------------------------------
+coverage/
+htmlcov/
+# ------------------------------
+# Optional local data artifacts
+# ------------------------------
+*.sqlite3
+*.db
